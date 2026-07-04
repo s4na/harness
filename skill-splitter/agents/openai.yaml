@@ -1,0 +1,3 @@
+display_name: Skill Splitter
+short_description: Split one rule skill into generator and reviewer skills.
+default_prompt: Split this skill into a generator skill and an adversarial reviewer checklist skill.
