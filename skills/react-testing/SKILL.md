@@ -1,19 +1,20 @@
 ---
 name: react-testing
-description: Use this skill for react testing tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for React component tests, Vitest browser mode, Testing Library, ARIA snapshots, accessibility assertions, UI state tests, and component-level regression tests. Do not use for Playwright E2E planning unless component tests are also involved.
 ---
 
-# react testing
+# React Testing
 
-This skill captures the default harness guidance for react testing work.
+## Principles
 
-## Guidance
+- Test user-observable behavior instead of implementation details.
+- Prefer Vitest browser mode for components that depend on real browser behavior.
+- Use accessible queries and ARIA snapshots to lock important semantics.
+- Keep component tests small; move cross-page flows to E2E tests.
+- Assert loading, error, empty, and permission states when they affect users.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Checklist
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Tests fail without the behavior change.
+- Queries reflect how users or assistive technology find the UI.
+- Mock boundaries are explicit and do not hide integration defects.

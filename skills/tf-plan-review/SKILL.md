@@ -1,19 +1,21 @@
 ---
 name: tf-plan-review
-description: Use this skill for tf plan review tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Terraform plan review, infrastructure diffs, resource replacement analysis, drift, IAM/security changes, cost impact, and CI review of terraform plan output.
 ---
 
-# tf plan review
+# Terraform Plan Review
 
-This skill captures the default harness guidance for tf plan review work.
+## Review priorities
 
-## Guidance
+- Destructive changes, replacements, and state moves.
+- IAM, networking, public exposure, encryption, and secret handling.
+- Cost, quota, and regional impact.
+- Drift that suggests manual changes outside Terraform.
+- Provider upgrades and generated diff noise.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Procedure
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+1. Summarize creates, updates, deletes, and replacements.
+2. Identify blast radius and rollback strategy.
+3. Verify security-sensitive changes against policy.
+4. Require human approval for destructive or privilege-expanding changes.

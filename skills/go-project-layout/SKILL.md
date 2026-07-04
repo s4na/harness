@@ -1,19 +1,21 @@
 ---
 name: go-project-layout
-description: Use this skill for go project layout tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Go repository layout, packages, cmd/internal/pkg boundaries, modules, interfaces, error handling, context propagation, and dependency organization.
 ---
 
-# go project layout
+# Go Project Layout
 
-This skill captures the default harness guidance for go project layout work.
+## Principles
 
-## Guidance
+- Keep packages cohesive and named by what they provide, not by layer suffixes alone.
+- Use `internal/` to enforce private boundaries.
+- Keep `cmd/` thin and move reusable behavior into packages.
+- Accept interfaces at consumers; return concrete types from constructors when practical.
+- Pass `context.Context` through request-scoped and I/O-bound operations.
+- Wrap errors with actionable context without losing sentinel behavior when callers rely on it.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Checklist
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Package imports do not create cycles or hidden global initialization.
+- Tests are close to packages and use external tests for public API behavior.
+- Configuration and logging are injected rather than read from globals deep in packages.

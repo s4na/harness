@@ -1,19 +1,14 @@
 ---
 name: rust-lint
-description: Use this skill for rust lint tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Rust clippy, rustfmt, cargo-deny, lint levels, CI enforcement, unsafe policy, dependency audits, and explaining Rust lint failures.
 ---
 
-# rust lint
+# Rust Lint
 
-This skill captures the default harness guidance for rust lint work.
+## Principles
 
-## Guidance
-
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
-
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Run `cargo fmt --check`, `cargo clippy -- -D warnings`, and `cargo deny check` in CI.
+- Keep lint configuration in versioned templates such as `configs/clippy/`.
+- Treat `unsafe` as an architectural decision: document invariants and prefer safe abstractions.
+- Audit licenses, advisories, and duplicate dependencies with cargo-deny.
+- Use narrowly scoped `allow` attributes with explanations when a lint is intentionally bypassed.

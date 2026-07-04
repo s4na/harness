@@ -1,19 +1,14 @@
 ---
 name: go-lint
-description: Use this skill for go lint tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for golangci-lint setup, Go lint rules, staticcheck, govet, CI lint enforcement, shared Go lint configuration, and explaining lint failures.
 ---
 
-# go lint
+# Go Lint
 
-This skill captures the default harness guidance for go lint work.
+## Principles
 
-## Guidance
-
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
-
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Use golangci-lint as the single CI entry point for Go static checks.
+- Keep shared configuration versioned and reproducible.
+- Treat `govet`, `staticcheck`, race-prone patterns, and error handling checks as high priority.
+- Avoid disabling linters globally; prefer narrow inline suppressions with reasons.
+- Run `go test ./...` separately from lint so test failures and static failures are clear.

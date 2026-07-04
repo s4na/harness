@@ -1,19 +1,22 @@
 ---
 name: ts-toolchain
-description: Use this skill for ts toolchain tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for TypeScript toolchain work, Vite+, vp check, vite.config.ts, Oxlint, Oxfmt, Vitest, tsgolint, package scripts, staged hooks, CI checks, and VoidZero stack adoption or fallback planning.
 ---
 
-# ts toolchain
+# TypeScript Toolchain
 
-This skill captures the default harness guidance for ts toolchain work.
+Use Vite+ (`vp`) as the default single entry point when the framework supports it. See `decisions/0002-voidzero-stack.md`.
 
-## Guidance
+## Principles
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+- Centralize tool configuration in `vite.config.ts` when using Vite+.
+- Make `vp check` the canonical local and CI command for formatting, linting, and type checking.
+- Keep shared Oxlint/Oxfmt rules in a versioned npm package such as `@org/oxlint-config`.
+- Use staged hooks for fast feedback, but treat CI as the enforcement boundary.
+- If Vite+ cannot support the framework, use Oxlint, Oxfmt, Vitest, and tsdown directly with the same shared config package.
 
-## When not to use
+## Checklist
 
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Add or update package scripts for the canonical check command.
+- Ensure CI runs the same check as local development.
+- Avoid parallel ESLint/Prettier configs unless a documented migration requires them.

@@ -1,19 +1,20 @@
 ---
 name: rails-rubocop
-description: Use this skill for rails rubocop tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Rails RuboCop setup, shared RuboCop gem adoption, lint rules, autocorrect, CI lint enforcement, and explaining style or safety cops.
 ---
 
-# rails rubocop
+# Rails RuboCop
 
-This skill captures the default harness guidance for rails rubocop work.
+## Principles
 
-## Guidance
+- Distribute shared RuboCop configuration as a gem and consume it with `inherit_gem`.
+- Keep project-local overrides rare and documented.
+- Run RuboCop in CI and pre-commit hooks; agent hooks are only fast feedback.
+- Prefer safety and correctness cops over purely stylistic churn.
+- When disabling a cop, explain why the rule does not fit the local context.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Checklist
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- The project uses the shared gem version intentionally.
+- Autocorrect is safe for the changed cops.
+- CI fails on violations that should not be optional.

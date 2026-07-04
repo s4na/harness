@@ -1,19 +1,15 @@
 ---
 name: rust-project-design
-description: Use this skill for rust project design tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Rust crate design, workspace layout, modules, error types, traits, ownership boundaries, async design, feature flags, and public API evolution.
 ---
 
-# rust project design
+# Rust Project Design
 
-This skill captures the default harness guidance for rust project design work.
+## Principles
 
-## Guidance
-
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
-
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Keep crate public APIs small, documented, and semver-aware.
+- Use workspaces to separate binaries, libraries, and integration support crates when boundaries are meaningful.
+- Prefer explicit error enums for library APIs and contextual error wrappers for binaries.
+- Keep feature flags additive and avoid mutually incompatible default features.
+- Do not expose internal modules just to make tests easier; use integration tests or test-only helpers carefully.
+- Choose async runtimes deliberately and avoid runtime-specific APIs in generic libraries when possible.

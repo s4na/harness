@@ -1,19 +1,22 @@
 ---
 name: react-component-design
-description: Use this skill for react component design tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for React component design, props APIs, hooks, state ownership, accessibility, composition, React Compiler compatibility, rendering performance, and UI component refactors.
 ---
 
-# react component design
+# React Component Design
 
-This skill captures the default harness guidance for react component design work.
+## Principles
 
-## Guidance
+- Prefer composition over boolean-prop explosions.
+- Keep state as local as possible; lift it only when multiple owners need coordination.
+- Design accessible markup first: labels, roles, keyboard behavior, focus, and semantic HTML.
+- Keep render logic pure and compatible with React Compiler expectations.
+- Separate server data, view state, and derived state.
+- Avoid premature memoization; measure before adding complexity.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Checklist
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Props encode domain intent rather than implementation details.
+- Loading, empty, error, and disabled states are explicit.
+- Interactive components are keyboard-operable and screen-reader understandable.
+- Complex components have focused tests using `react-testing`.

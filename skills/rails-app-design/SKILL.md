@@ -1,19 +1,21 @@
 ---
 name: rails-app-design
-description: Use this skill for rails app design tasks, project conventions, implementation review, and related configuration changes in this domain. Combine it with core skills when schema, ADR, or review rules also apply.
+description: Use this skill for Rails application architecture, controllers, models, services, jobs, validations, callbacks, transactions, ActiveRecord boundaries, and Rails code organization.
 ---
 
-# rails app design
+# Rails App Design
 
-This skill captures the default harness guidance for rails app design work.
+## Principles
 
-## Guidance
+- Keep controllers thin: authenticate, authorize, parse input, call domain/application code, and render.
+- Put invariants close to the model, but avoid callback chains that hide side effects.
+- Use transactions around multi-record state changes.
+- Prefer explicit service/application objects for workflows spanning multiple aggregates or external systems.
+- Keep background jobs idempotent and retry-safe.
+- Use database constraints for invariants that must survive concurrency.
 
-- Keep agent-specific behavior thin and prefer repository-standard tools that humans and CI also run.
-- Link non-obvious conventions to ADRs in `decisions/`.
-- Promote repeated guidance into deterministic lint, test, hook, or CI checks when failures would be costly.
-- Use native package-manager distribution for enforcement configuration rather than relying on agent installation alone.
+## Checklist
 
-## When not to use
-
-Do not use this skill for unrelated domains unless the task explicitly spans this stack.
+- Authorization and tenancy boundaries are enforced before data access.
+- Validation errors are user-actionable.
+- External side effects are not performed inside transactions unless deliberately safe.

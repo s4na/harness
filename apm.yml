@@ -6,6 +6,12 @@ skills:
   - skills/core-code-review
   - skills/core-adr
   - skills/core-schema-principles
+  - skills/harness-skill-design
+  - skills/harness-repository-maintenance
+  - skills/llm-prompt-engineering
+  - skills/llm-rag-design
+  - skills/llm-evaluation
+  - skills/llm-agent-tooling
   - skills/rails-app-design
   - skills/rails-schema-design
   - skills/rails-rubocop
