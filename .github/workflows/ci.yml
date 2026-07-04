@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate harness
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Validate Ruby schema checker syntax
+        run: ruby -c skills/rails-schema-design/scripts/check_schema.rb
+
+      - name: Run Rails schema checker
+        run: ruby skills/rails-schema-design/scripts/check_schema.rb
+
+      - name: Validate skill frontmatter
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          skills = sorted(Path('skills').glob('*/SKILL.md'))
+          if not skills:
+              raise SystemExit('no skills found')
+
+          for path in skills:
+              text = path.read_text(encoding='utf-8')
+              if not text.startswith('---\n'):
+                  raise SystemExit(f'{path}: missing opening frontmatter delimiter')
+              try:
+                  _, frontmatter, _ = text.split('---', 2)
+              except ValueError as exc:
+                  raise SystemExit(f'{path}: malformed frontmatter') from exc
+              fields = {}
+              for line in frontmatter.strip().splitlines():
+                  if ':' not in line:
+                      continue
+                  key, value = line.split(':', 1)
+                  fields[key.strip()] = value.strip()
+              for required in ('name', 'description'):
+                  if not fields.get(required):
+                      raise SystemExit(f'{path}: missing {required}')
+              if len(fields['description']) < 80:
+                  raise SystemExit(f'{path}: description is too short for reliable triggering')
+
+          print(f'validated {len(skills)} skills')
+          PY
+
+      - name: Validate YAML files
+        run: |
+          ruby -ryaml -e 'ARGV.each { |path| YAML.load_file(path); puts "validated #{path}" }' \
+            apm.yml \
+            .github/workflows/ci.yml \
+            .github/workflows/zizmor.yml
