@@ -1,0 +1,27 @@
+name: harness
+version: 0.1.0
+description: Agent Skills harness for sharing architectural decisions across coding agents.
+license: MIT
+skills:
+  - skills/core-code-review
+  - skills/core-adr
+  - skills/core-schema-principles
+  - skills/harness-skill-design
+  - skills/harness-repository-maintenance
+  - skills/llm-prompt-engineering
+  - skills/llm-rag-design
+  - skills/llm-evaluation
+  - skills/llm-agent-tooling
+  - skills/rails-app-design
+  - skills/rails-schema-design
+  - skills/rails-rubocop
+  - skills/ts-toolchain
+  - skills/ts-lib-design
+  - skills/react-component-design
+  - skills/react-testing
+  - skills/tf-module-design
+  - skills/tf-plan-review
+  - skills/go-project-layout
+  - skills/go-lint
+  - skills/rust-project-design
+  - skills/rust-lint
