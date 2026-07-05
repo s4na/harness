@@ -1,0 +1,6 @@
+interface:
+  display_name: "Intent Record"
+  short_description: "Maintain provenance-first IR bundles."
+  default_prompt: "Use $intent-record to create or maintain an OKF-compatible IR bundle with L0 utterances, L1 interpretations, human-only L2 ratification, and reproducible derived caches."
+policy:
+  allow_implicit_invocation: true
