@@ -11,7 +11,7 @@ Treat L0 utterances and L2 human ratifications as truth. Treat L1 interpretation
 
 ## Bundle layout
 
-Create or maintain an OKF v0.1-compatible bundle under `knowledge/` unless the user specifies another root:
+Create or maintain an OKF v0.1-compatible bundle under `knowledge/` unless the user specifies another root. For new bundles, copy `assets/knowledge-template/` first, then replace placeholder titles, timestamps, and log entries:
 
 ```text
 knowledge/
@@ -92,4 +92,4 @@ Before finishing IR work, verify:
 - `derived/` contains only reproducible artifacts.
 - Decisions in `decisions/` reference at least one IR.
 
-For a fuller schema example, read `references/ir-format.md`.
+For a fuller schema example, read `references/ir-format.md`. For a runnable starter bundle, copy `assets/knowledge-template/` and preserve its ontology/action guardrails unless the user explicitly changes the IR policy.
