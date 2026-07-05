@@ -1,0 +1,26 @@
+actions:
+  - name: append_utterance
+    allowed_agents: [human]
+    mutation: append-only
+
+  - name: draft_interpretation
+    allowed_agents: [human, ai]
+    constraints:
+      - must_reference: utterances/
+      - status_must_be: draft
+
+  - name: ratify
+    allowed_agents: [human]
+
+  - name: deprecate
+    allowed_agents: [human]
+    constraints:
+      - require: [reason, superseded_by_or_explicit_null]
+
+  - name: flag_staleness
+    allowed_agents: [ai]
+    output: draft_interpretation
+
+  - name: rebuild_derived
+    allowed_agents: [ai, ci]
+    scope: derived/

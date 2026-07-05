@@ -1,0 +1,14 @@
+link_types:
+  - name: derived_from
+    from: [intent-record]
+    to: [utterance]
+    required_for: [intent-record]
+  - name: refines
+    from: [intent-record, decision-record]
+    to: [intent-record, decision-record]
+  - name: supersedes
+    from: [intent-record, decision-record]
+    to: [intent-record, decision-record]
+  - name: conflicts_with
+    from: [intent-record, decision-record]
+    to: [intent-record, decision-record]

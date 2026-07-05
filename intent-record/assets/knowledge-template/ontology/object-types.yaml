@@ -1,0 +1,14 @@
+object_types:
+  - name: utterance
+    layer: L0
+    truth: true
+    mutation: append-only
+  - name: intent-record
+    layer: L1+L2
+    truth_when_status: ratified
+    statuses: [draft, ratified, deprecated, superseded]
+  - name: decision-record
+    layer: L2
+    truth: true
+    constraints:
+      - must_reference: intents/
